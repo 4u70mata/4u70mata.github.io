@@ -3,23 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Me - Sami's Portfolio</title>
+    <title>Contact Me - Sami Aridal</title>
     <link rel="stylesheet" href="style/main.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
 </head>
 <body>
-
-    <header class="navbar">
+    <header class="navbar" id="navbar">
         <div class="container">
-            <a href="index.html" class="logo">Sami</a>
-            <nav>
+            <a href="index.html" class="logo">Sami Aridal</a>
+            <nav class="nav-menu">
                 <ul class="nav-links">
                     <li><a href="index.html">Home</a></li>
                     <li><a href="about.html">About</a></li>
                     <li><a href="projects.html">Projects</a></li>
                     <li><a href="contact.html" class="active">Contact</a></li>
                 </ul>
+                 <div class="theme-switcher">
+                    <button id="theme-toggle" title="Toggle dark mode">🌙</button>
+                </div>
             </nav>
-            <button class="hamburger" id="hamburger-menu">
+            <button class="hamburger" id="hamburger-menu" aria-label="Toggle menu">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -28,27 +32,27 @@
     </header>
 
     <main>
-        <section class="page-header">
+        <section class="page-header" data-aos="fade-in">
             <div class="container">
                 <h1>Get In Touch</h1>
-                <p>I'd love to hear from you! Please fill out the form below.</p>
+                <p>Have a question or want to work together? I’d love to hear from you.</p>
             </div>
         </section>
-
-        <section class="contact-form-section">
-            <div class="container">
+        
+        <section class="content-section">
+            <div class="container" data-aos="fade-up">
                 <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="contact-form">
                     <div class="form-group">
                         <label for="name">Your Name</label>
-                        <input type="text" id="name" name="name" required>
+                        <input type="text" id="name" name="name" required placeholder="John Doe">
                     </div>
                     <div class="form-group">
                         <label for="email">Your Email</label>
-                        <input type="email" id="email" name="_replyto" required>
+                        <input type="email" id="email" name="email" required placeholder="john.doe@example.com">
                     </div>
                     <div class="form-group">
                         <label for="message">Message</label>
-                        <textarea id="message" name="message" rows="6" required></textarea>
+                        <textarea id="message" name="message" rows="6" required placeholder="Your message here..."></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary">Send Message</button>
                 </form>
@@ -58,10 +62,12 @@
 
     <footer class="footer">
         <div class="container">
-            <p>© 2024 Sami. All Rights Reserved.</p>
+            <p>© 2024 Sami Aridal. All Rights Reserved.</p>
         </div>
     </footer>
 
+    <button id="scroll-to-top" title="Go to top">↑</button>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>

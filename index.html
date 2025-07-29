@@ -3,25 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sami - Developer Portfolio</title>
-    <meta name="description" content="Welcome to the professional portfolio of Sami, a passionate developer.">
+    <title>Sami Aridal - Developer Portfolio</title>
+    <meta name="description" content="The professional developer portfolio of Sami Aridal, showcasing modern web projects and skills.">
+    
+    <!-- SEO / OpenGraph Meta Tags -->
+    <meta property="og:title" content="Sami Aridal - Developer Portfolio">
+    <meta property="og:description" content="Creative developer building beautiful and functional web experiences.">
+    <meta property="og:image" content="https://4u70mata.github.io/assets/img/profile.jpg">
+    <meta property="og:url" content="https://4u70mata.github.io/">
+    
+    <!-- CSS -->
     <link rel="stylesheet" href="style/main.css">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
 </head>
 <body>
+    <!-- 3D Background Canvas -->
+    <canvas id="bg"></canvas>
 
-    <header class="navbar">
+    <!-- Header & Navigation -->
+    <header class="navbar" id="navbar">
         <div class="container">
-            <a href="index.html" class="logo">Sami</a>
-            <nav>
+            <a href="index.html" class="logo">Sami Aridal</a>
+            <nav class="nav-menu">
                 <ul class="nav-links">
                     <li><a href="index.html" class="active">Home</a></li>
                     <li><a href="about.html">About</a></li>
                     <li><a href="projects.html">Projects</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
+                <div class="theme-switcher">
+                    <button id="theme-toggle" title="Toggle dark mode">🌙</button>
+                </div>
             </nav>
-            <button class="hamburger" id="hamburger-menu">
+            <button class="hamburger" id="hamburger-menu" aria-label="Toggle menu">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -30,63 +45,54 @@
     </header>
 
     <main>
+        <!-- Hero Section -->
         <section class="hero">
-            <div class="container">
-                <h1>Hi, I'm Sami</h1>
-                <p class="subtitle">A passionate developer creating modern and responsive web applications.</p>
-                <a href="projects.html" class="btn btn-primary">View My Work</a>
-                <a href="resume.pdf" class="btn" target="_blank">Download Resume</a>
+            <div class="container" data-aos="fade-up">
+                <h1>Hello, I’m Sami Aridal 👨‍💻</h1>
+                <p class="subtitle">I design and build dynamic, responsive, and beautiful web applications.</p>
+                <a href="projects.html" class="btn btn-primary">View My Projects</a>
+                <a href="assets/resume.pdf" class="btn" target="_blank">Download My Resume</a>
             </div>
         </section>
 
-        <section class="home-about">
+        <!-- Featured Projects Section -->
+        <section id="featured-projects" class="content-section">
             <div class="container">
-                <h2>About Me</h2>
-                <div class="about-content">
-                    <img src="img/profile.jpg" alt="Sami's Profile Picture" class="profile-pic">
-                    <p>
-                        I am a developer with a strong focus on building beautiful, functional, and user-friendly websites. I have experience in front-end and back-end technologies and am always eager to learn new things. <a href="about.html">Read more...</a>
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <section class="featured-projects">
-            <div class="container">
-                <h2>Featured Projects</h2>
+                <h2 data-aos="fade-up">Featured Work</h2>
                 <div class="project-grid">
-                    <!-- Project 1 -->
-                    <div class="project-card">
-                        <h3>Project One</h3>
-                        <p>A brief description of this amazing project. It solves a real-world problem using modern tech.</p>
-                        <a href="projects.html">Learn More</a>
+                    <div class="project-card" data-aos="fade-up" data-aos-delay="100">
+                        <h3>Project Title One</h3>
+                        <p>A brief but compelling description of a standout project, highlighting the key technologies used.</p>
+                        <a href="projects.html" class="btn-link">Learn More →</a>
                     </div>
-                    <!-- Project 2 -->
-                    <div class="project-card">
-                        <h3>Project Two</h3>
-                        <p>Another great project that showcases my skills in front-end development and UI/UX design.</p>
-                        <a href="projects.html">Learn More</a>
+                    <div class="project-card" data-aos="fade-up" data-aos-delay="200">
+                        <h3>Project Title Two</h3>
+                        <p>Showcase of another project, perhaps focusing on a different skill like API integration or UI/UX.</p>
+                        <a href="projects.html" class="btn-link">Learn More →</a>
                     </div>
-                    <!-- Project 3 -->
-                    <div class="project-card">
-                        <h3>Project Three</h3>
-                        <p>This project involved back-end development and API integration to create a dynamic user experience.</p>
-                        <a href="projects.html">Learn More</a>
+                    <div class="project-card" data-aos="fade-up" data-aos-delay="300">
+                        <h3>Project Title Three</h3>
+                        <p>This project could demonstrate your ability to work with advanced libraries or backend technologies.</p>
+                        <a href="projects.html" class="btn-link">Learn More →</a>
                     </div>
-                </div>
-                <div class="text-center">
-                    <a href="projects.html" class="btn">See All Projects</a>
                 </div>
             </div>
         </section>
     </main>
 
+    <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>© 2024 Sami. All Rights Reserved.</p>
+            <p>© 2024 Sami Aridal. Built with passion and code.</p>
         </div>
     </footer>
+    
+    <!-- Scroll to Top Button -->
+    <button id="scroll-to-top" title="Go to top">↑</button>
 
+    <!-- JavaScript Libraries & Main Script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>

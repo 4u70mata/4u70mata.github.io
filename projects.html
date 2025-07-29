@@ -3,23 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Projects - Sami's Portfolio</title>
+    <title>My Projects - Sami Aridal</title>
     <link rel="stylesheet" href="style/main.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
 </head>
 <body>
-
-    <header class="navbar">
+    <header class="navbar" id="navbar">
         <div class="container">
-            <a href="index.html" class="logo">Sami</a>
-            <nav>
+            <a href="index.html" class="logo">Sami Aridal</a>
+            <nav class="nav-menu">
                 <ul class="nav-links">
                     <li><a href="index.html">Home</a></li>
                     <li><a href="about.html">About</a></li>
                     <li><a href="projects.html" class="active">Projects</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
+                 <div class="theme-switcher">
+                    <button id="theme-toggle" title="Toggle dark mode">🌙</button>
+                </div>
             </nav>
-            <button class="hamburger" id="hamburger-menu">
+            <button class="hamburger" id="hamburger-menu" aria-label="Toggle menu">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -28,43 +32,40 @@
     </header>
 
     <main>
-        <section class="page-header">
+        <section class="page-header" data-aos="fade-in">
             <div class="container">
-                <h1>My Work</h1>
-                <p>Here are some of the projects I'm proud of.</p>
+                <h1>My Projects</h1>
+                <p>A collection of my work. (You can auto-fetch these from the GitHub API!)</p>
             </div>
         </section>
 
-        <section class="projects-gallery">
+        <section class="content-section">
             <div class="container">
-                <div class="project-grid">
-                    <!-- Project 1 -->
-                    <div class="project-card">
-                        <h3>Project One</h3>
-                        <p>A detailed description of the first project. Explain the technology used, the problem it solves, and your role in its development. Add more context here.</p>
-                        <a href="#" class="btn-link" target="_blank">Live Demo</a>
-                        <a href="#" class="btn-link" target="_blank">Source Code</a>
+                <div class="project-grid-full">
+                    <!-- Replace with your project details -->
+                    <div class="project-card" data-aos="fade-up">
+                        <h3>E-Commerce Platform</h3>
+                        <p>A full-stack e-commerce website built with React, Node.js, and Stripe for payments. Features product search, user authentication, and a complete checkout flow.</p>
+                        <div>
+                            <a href="#" class="btn-link" target="_blank">Live Demo</a>
+                            <a href="#" class="btn-link" target="_blank">Source Code</a>
+                        </div>
                     </div>
-                    <!-- Project 2 -->
-                    <div class="project-card">
-                        <h3>Project Two</h3>
-                        <p>A detailed description of the second project. Explain the technology used, the problem it solves, and your role in its development. Add more context here.</p>
-                        <a href="#" class="btn-link" target="_blank">Live Demo</a>
-                        <a href="#" class="btn-link" target="_blank">Source Code</a>
+                    <div class="project-card" data-aos="fade-up">
+                        <h3>Interactive Data Dashboard</h3>
+                        <p>A data visualization dashboard using D3.js to display real-time analytics. Fetches data from a REST API and presents it through interactive charts and graphs.</p>
+                        <div>
+                            <a href="#" class="btn-link" target="_blank">Live Demo</a>
+                            <a href="#" class="btn-link" target="_blank">Source Code</a>
+                        </div>
                     </div>
-                    <!-- Project 3 -->
-                    <div class="project-card">
-                        <h3>Project Three</h3>
-                        <p>A detailed description of the third project. Explain the technology used, the problem it solves, and your role in its development. Add more context here.</p>
-                        <a href="#" class="btn-link" target="_blank">Live Demo</a>
-                        <a href="#" class="btn-link" target="_blank">Source Code</a>
-                    </div>
-                    <!-- Project 4 -->
-                    <div class="project-card">
-                        <h3>Project Four</h3>
-                        <p>A detailed description of the fourth project. Explain the technology used, the problem it solves, and your role in its development. Add more context here.</p>
-                        <a href="#" class="btn-link" target="_blank">Live Demo</a>
-                        <a href="#" class="btn-link" target="_blank">Source Code</a>
+                    <div class="project-card" data-aos="fade-up">
+                        <h3>3D Portfolio Website</h3>
+                        <p>This very portfolio, built with HTML, CSS, and vanilla JavaScript, featuring a 3D animated background using Three.js and scroll animations with AOS.js.</p>
+                        <div>
+                            <a href="#" class="btn-link" target="_blank">Live Demo</a>
+                            <a href="#" class="btn-link" target="_blank">Source Code</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -73,10 +74,12 @@
 
     <footer class="footer">
         <div class="container">
-            <p>© 2024 Sami. All Rights Reserved.</p>
+            <p>© 2024 Sami Aridal. All Rights Reserved.</p>
         </div>
     </footer>
 
+    <button id="scroll-to-top" title="Go to top">↑</button>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>
