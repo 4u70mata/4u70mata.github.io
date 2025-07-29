@@ -1,26 +1,92 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Hello, I'm 4u70mata</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      text-align: center;
-      padding: 50px;
-      background-color: #f9f9f9;
-    }
-    h1 {
-      color: #222;
-    }
-    p {
-      color: #666;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sami - Developer Portfolio</title>
+    <meta name="description" content="Welcome to the professional portfolio of Sami, a passionate developer.">
+    <link rel="stylesheet" href="style/main.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
-  <h1>Hello, World! 👋</h1>
-  <p>This is my first deployed site on GitHub Pages.</p>
+
+    <header class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">Sami</a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="hamburger" id="hamburger-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Hi, I'm Sami</h1>
+                <p class="subtitle">A passionate developer creating modern and responsive web applications.</p>
+                <a href="projects.html" class="btn btn-primary">View My Work</a>
+                <a href="resume.pdf" class="btn" target="_blank">Download Resume</a>
+            </div>
+        </section>
+
+        <section class="home-about">
+            <div class="container">
+                <h2>About Me</h2>
+                <div class="about-content">
+                    <img src="img/profile.jpg" alt="Sami's Profile Picture" class="profile-pic">
+                    <p>
+                        I am a developer with a strong focus on building beautiful, functional, and user-friendly websites. I have experience in front-end and back-end technologies and am always eager to learn new things. <a href="about.html">Read more...</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="featured-projects">
+            <div class="container">
+                <h2>Featured Projects</h2>
+                <div class="project-grid">
+                    <!-- Project 1 -->
+                    <div class="project-card">
+                        <h3>Project One</h3>
+                        <p>A brief description of this amazing project. It solves a real-world problem using modern tech.</p>
+                        <a href="projects.html">Learn More</a>
+                    </div>
+                    <!-- Project 2 -->
+                    <div class="project-card">
+                        <h3>Project Two</h3>
+                        <p>Another great project that showcases my skills in front-end development and UI/UX design.</p>
+                        <a href="projects.html">Learn More</a>
+                    </div>
+                    <!-- Project 3 -->
+                    <div class="project-card">
+                        <h3>Project Three</h3>
+                        <p>This project involved back-end development and API integration to create a dynamic user experience.</p>
+                        <a href="projects.html">Learn More</a>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <a href="projects.html" class="btn">See All Projects</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>© 2024 Sami. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
 </body>
 </html>
