@@ -8,25 +8,27 @@
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
 </head>
-<body>
+<body class="is-transitioning">
+    <div class="cursor"></div>
+    <div class="page-transition-overlay"></div>
+
     <header class="navbar" id="navbar">
         <div class="container">
-            <a href="index.html" class="logo">Sami Aridal</a>
+            <a href="index.html" class="logo magnetic-item">Sami Aridal</a>
             <nav class="nav-menu">
                 <ul class="nav-links">
                     <li><a href="index.html">Home</a></li>
                     <li><a href="about.html" class="active">About</a></li>
                     <li><a href="projects.html">Projects</a></li>
+                    <li><a href="articles.html">Articles</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
-                 <div class="theme-switcher">
-                    <button id="theme-toggle" title="Toggle dark mode">🌙</button>
+                <div class="theme-switcher">
+                    <button id="theme-toggle" class="magnetic-item" title="Toggle dark mode">🌙</button>
                 </div>
             </nav>
             <button class="hamburger" id="hamburger-menu" aria-label="Toggle menu">
-                <span></span>
-                <span></span>
-                <span></span>
+                <span></span><span></span><span></span>
             </button>
         </div>
     </header>
@@ -47,17 +49,20 @@
                 <div class="about-text" data-aos="fade-left">
                     <h2>Who I Am</h2>
                     <p>I'm a passionate web developer with a knack for creating elegant solutions to complex problems. My journey into programming began with a simple "Hello, World!" and has since evolved into a full-fledged passion for building seamless, intuitive digital experiences. I am proficient in both front-end and back-end development, and I am always excited to embrace new challenges and learn new technologies.</p>
+                    <p>I believe that the best websites are not just functional, but also beautiful and delightful to use. This philosophy drives me to focus on details, micro-interactions, and performance in every project I undertake.</p>
                     
                     <h2>My Skills</h2>
                     <ul class="skills-list">
                         <li>HTML5 & CSS3</li>
                         <li>JavaScript (ES6+)</li>
-                        <li>React</li>
-                        <li>Three.js</li>
+                        <li>React & Vue.js</li>
+                        <li>Three.js & WebGL</li>
                         <li>Node.js & Express</li>
                         <li>Git & GitHub</li>
                         <li>Responsive Design</li>
                         <li>API Integration</li>
+                        <li>Firebase & SQL</li>
+                        <li>UX/UI Principles</li>
                     </ul>
                 </div>
             </div>
@@ -70,7 +75,7 @@
         </div>
     </footer>
     
-    <button id="scroll-to-top" title="Go to top">↑</button>
+    <button id="scroll-to-top" class="magnetic-item" title="Go to top">↑</button>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script src="js/main.js"></script>
 </body>

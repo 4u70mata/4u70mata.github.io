@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Projects - Sami Aridal</title>
+    <title>Project Details - Sami Aridal</title>
     <link rel="stylesheet" href="style/main.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
@@ -34,17 +34,15 @@
     </header>
 
     <main>
-        <section class="page-header" data-aos="fade-in">
-            <div class="container">
-                <h1>My Work</h1>
-                <p>A curated selection of projects where I turned ideas into reality.</p>
-            </div>
-        </section>
-        <section class="content-section">
-            <div class="container">
-                <div class="project-grid-full" id="projects-container">
-                    <!-- Project cards will be injected here by JavaScript -->
-                    <p>Loading projects...</p>
+        <section class="content-section" id="project-detail-container">
+            <div class="container article-content" data-aos="fade-up">
+                <h1 id="project-title">Loading Project...</h1>
+                <div class="tags-container" id="project-tags"></div>
+                <img src="" alt="Project main image" class="project-image" id="project-image">
+                <div class="project-description" id="project-description"></div>
+                <div class="project-links">
+                    <a href="#" id="project-live-url" class="btn btn-primary magnetic-item" target="_blank">View Live Site</a>
+                    <a href="#" id="project-source-url" class="btn magnetic-item" target="_blank">View Source Code</a>
                 </div>
             </div>
         </section>

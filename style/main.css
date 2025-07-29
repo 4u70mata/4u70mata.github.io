@@ -1,5 +1,3 @@
-/* style/main.css */
-
 /* 1. CSS Variables (Themes) & Global Styles */
 :root {
     --primary-color: #0d6efd;
@@ -22,9 +20,7 @@
     --transition-speed: 0.3s;
 }
 
-html {
-    scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
 body {
     font-family: var(--font-sans);
@@ -34,147 +30,128 @@ body {
     color: var(--text-light);
     transition: background-color var(--transition-speed), color var(--transition-speed);
 }
-
 html.dark-mode body {
     background-color: var(--background-dark);
     color: var(--text-dark);
 }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+h1, h2, h3 { color: inherit; line-height: 1.2; }
+p { line-height: 1.7; }
+a { color: var(--primary-color); text-decoration: none; transition: color 0.3s ease; }
+a:hover { color: var(--primary-hover); }
+
+/* 2. Advanced UI Elements (Cursor, Transitions) */
+.cursor {
+    width: 25px;
+    height: 25px;
+    border: 2px solid var(--text-light);
+    border-radius: 50%;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 9999;
+    transition: width 0.3s, height 0.3s, border-width 0.3s, background-color 0.3s, border-color 0.3s;
+    mix-blend-mode: difference;
+}
+.cursor.grow {
+    width: 50px;
+    height: 50px;
+    border-width: 3px;
+    background-color: var(--text-light);
+}
+html.dark-mode .cursor { border-color: var(--text-dark); }
+html.dark-mode .cursor.grow { background-color: var(--text-dark); }
+
+.page-transition-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+    background-color: #1a1a1a;
+    z-index: 9998;
+    transform: translateY(100%);
+}
+body.is-transitioning .page-transition-overlay { transform: translateY(0); }
+body.is-leaving .page-transition-overlay {
+    transform: translateY(0);
+    transition: transform 0.5s cubic-bezier(0.83, 0, 0.17, 1);
 }
 
-h1, h2, h3 { color: inherit; }
-
-/* 2. Background Canvas */
+/* 3. Background Canvas */
 #bg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
+    position: fixed; top: 0; left: 0;
+    width: 100vw; height: 100vh;
     z-index: -1;
 }
 
-/* 3. Navbar */
+/* 4. Navbar */
 .navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 15px 0;
-    z-index: 1000;
+    position: fixed; top: 0; left: 0; width: 100%; padding: 15px 0; z-index: 1000;
     background-color: var(--nav-bg-light);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid transparent;
     transition: background-color var(--transition-speed), border-color var(--transition-speed), box-shadow var(--transition-speed);
 }
-
 .navbar.scrolled {
     box-shadow: var(--box-shadow);
     border-color: var(--border-light);
 }
-
 html.dark-mode .navbar { background-color: var(--nav-bg-dark); }
 html.dark-mode .navbar.scrolled { border-color: var(--border-dark); }
-
-.navbar .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: inherit;
-    text-decoration: none;
-}
-
+.navbar .container { display: flex; justify-content: space-between; align-items: center; }
+.logo { font-size: 1.5rem; font-weight: bold; color: inherit; text-decoration: none; }
 .nav-menu { display: flex; align-items: center; gap: 20px; }
-.nav-links {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    gap: 30px;
-}
+.nav-links { list-style: none; margin: 0; padding: 0; display: flex; gap: 30px; }
 .nav-links a {
-    color: inherit;
-    text-decoration: none;
-    font-weight: 500;
-    position: relative;
-    padding-bottom: 5px;
+    color: inherit; text-decoration: none; font-weight: 500;
+    position: relative; padding-bottom: 5px;
 }
 .nav-links a::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
+    content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px;
     background-color: var(--primary-color);
     transition: width var(--transition-speed) ease;
 }
 .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
-
-.theme-switcher button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 1.5rem;
-    padding: 0;
-}
-
+.theme-switcher button { background: none; border: none; cursor: pointer; font-size: 1.5rem; padding: 0; }
 .hamburger { display: none; }
+.magnetic-item { transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1); }
 
-/* 4. Hero Section */
+/* 5. Hero Section */
 .hero {
     min-height: calc(100vh - 70px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    position: relative;
-    z-index: 1;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center; position: relative; z-index: 1;
 }
-.hero h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); margin-bottom: 1rem; }
+.hero h1 { font-size: clamp(2.5rem, 6vw, 5rem); margin-bottom: 1rem; }
 .hero .subtitle { font-size: clamp(1rem, 2vw, 1.25rem); color: #6c757d; max-width: 600px; margin: 0 auto 2rem; }
 html.dark-mode .hero .subtitle { color: #adb5bd; }
 
-/* 5. Buttons */
+/* 6. Buttons */
 .btn {
-    display: inline-block;
-    padding: 12px 28px;
-    border-radius: var(--border-radius);
-    text-decoration: none;
-    font-weight: bold;
-    transition: transform var(--transition-speed), background-color var(--transition-speed);
+    display: inline-block; padding: 12px 28px; border-radius: var(--border-radius);
+    text-decoration: none; font-weight: bold;
     border: 2px solid transparent;
 }
 .btn-primary { background-color: var(--primary-color); color: #fff; }
-.btn-primary:hover { background-color: var(--primary-hover); transform: translateY(-2px); }
-.btn { background-color: #6c757d; color: #fff; }
-.btn:hover { background-color: #5a6268; transform: translateY(-2px); }
+.btn-primary:hover { background-color: var(--primary-hover); }
+.btn-link { color: var(--primary-color); text-decoration: none; font-weight: bold; }
 
-/* 6. Content Sections & Cards */
-.content-section { padding: 80px 0; background-color: var(--card-bg-light); }
-html.dark-mode .content-section { background-color: var(--background-dark); }
-.page-header { padding: 60px 0; text-align: center; background-color: var(--card-bg-light); border-bottom: 1px solid var(--border-light); }
-html.dark-mode .page-header { background-color: #1a1a1a; border-color: var(--border-dark); }
-
-.project-grid, .project-grid-full {
-    display: grid;
-    gap: 30px;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+/* 7. Content Sections & Cards */
+.content-section { padding: 80px 0; }
+.page-header {
+    padding: 60px 0; text-align: center;
+    background-color: var(--card-bg-light);
+    border-bottom: 1px solid var(--border-light);
+}
+html.dark-mode .page-header {
+    background-color: #1a1a1a;
+    border-color: var(--border-dark);
+}
+.project-grid-full {
+    display: grid; gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
 }
 .project-card {
-    background: var(--card-bg-light);
-    border: 1px solid var(--border-light);
-    border-radius: var(--border-radius);
-    padding: 30px;
+    background: var(--card-bg-light); border: 1px solid var(--border-light);
+    border-radius: var(--border-radius); padding: 30px;
     box-shadow: var(--box-shadow);
     transition: transform var(--transition-speed), box-shadow var(--transition-speed);
 }
@@ -185,91 +162,73 @@ html.dark-mode .project-card {
     box-shadow: none;
 }
 html.dark-mode .project-card:hover { box-shadow: 0 0 20px rgba(0, 123, 255, 0.1); }
-.btn-link { color: var(--primary-color); text-decoration: none; font-weight: bold; }
 
-/* 7. About Page */
+/* 8. About & Detail Pages */
 .about-layout { display: grid; grid-template-columns: 1fr 2fr; gap: 50px; align-items: center; }
 .profile-pic { width: 100%; max-width: 300px; border-radius: 50%; object-fit: cover; aspect-ratio: 1/1; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
 .skills-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
 .skills-list li { background: var(--primary-color); color: #fff; padding: 8px 15px; border-radius: 20px; font-size: 0.9rem; }
+.project-image { width: 100%; height: auto; border-radius: var(--border-radius); margin: 2rem 0; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+.tags-container { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 1rem; }
+.tags-container .tag { background: var(--primary-color); color: #fff; padding: 5px 12px; border-radius: 20px; font-size: 0.9rem; }
+.project-links { margin-top: 2rem; }
+.article-content { max-width: 800px; margin: auto; }
+.article-meta { color: #6c757d; margin-bottom: 2rem; }
+html.dark-mode .article-meta { color: #adb5bd; }
+.article-content h2 { margin-top: 2.5rem; }
+.article-content code { background: #e9ecef; padding: .2em .4em; margin: 0; font-size: 85%; border-radius: 3px; }
+html.dark-mode .article-content code { background: #333; }
+.article-content pre { background: #e9ecef; padding: 1em; border-radius: var(--border-radius); overflow-x: auto;}
+html.dark-mode .article-content pre { background: #222; }
 
-/* 8. Contact Form */
+/* 9. Contact Form */
 .contact-form { max-width: 700px; margin: auto; }
 .form-group { margin-bottom: 20px; }
 .form-group label { display: block; margin-bottom: 8px; font-weight: 500; }
 .form-group input, .form-group textarea {
-    width: 100%;
-    padding: 12px;
+    width: 100%; padding: 12px;
     border: 1px solid var(--border-light);
-    background-color: #fff;
+    background-color: var(--card-bg-light);
     border-radius: var(--border-radius);
-    box-sizing: border-box;
-    color: var(--text-light);
+    box-sizing: border-box; color: inherit;
 }
 html.dark-mode .form-group input, html.dark-mode .form-group textarea {
     background-color: var(--card-bg-dark);
     border-color: var(--border-dark);
-    color: var(--text-dark);
 }
 
-/* 9. Footer */
-.footer { padding: 30px 0; text-align: center; background: var(--card-bg-light); border-top: 1px solid var(--border-light); margin-top: 60px; }
-html.dark-mode .footer { background-color: var(--card-bg-dark); border-color: var(--border-dark); }
-
-/* 10. Utilities (Scroll-to-top) */
+/* 10. Footer & Utilities */
+.footer { padding: 30px 0; text-align: center; border-top: 1px solid var(--border-light); margin-top: 60px; }
+html.dark-mode .footer { border-color: var(--border-dark); }
 #scroll-to-top {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    background: var(--primary-color);
-    color: #fff;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    display: none;
-    z-index: 1000;
+    position: fixed; bottom: 20px; right: 20px;
+    width: 50px; height: 50px; border-radius: 50%;
+    background: var(--primary-color); color: #fff;
+    border: none; font-size: 24px; cursor: pointer;
+    display: none; z-index: 1000;
 }
 
 /* 11. Responsive Design */
 @media (max-width: 768px) {
+    .cursor { display: none; }
     .nav-links {
-        display: none;
-        position: absolute;
-        top: 70px;
-        left: 0;
-        width: 100%;
-        flex-direction: column;
-        background: var(--nav-bg-light);
-        padding: 20px 0;
-        backdrop-filter: blur(10px);
+        display: none; position: absolute; top: 70px; left: 0; width: 100%;
+        flex-direction: column; background: var(--nav-bg-light);
+        padding: 20px 0; backdrop-filter: blur(10px);
         box-shadow: 0 10px 20px rgba(0,0,0,0.1);
     }
     html.dark-mode .nav-links { background: var(--nav-bg-dark); }
     .nav-links.active { display: flex; }
     .nav-links li { text-align: center; width: 100%; padding: 10px 0; }
-    .nav-menu { gap: 10px; } /* Reduce gap */
-
+    .nav-menu { gap: 10px; }
     .hamburger {
-        display: block;
-        cursor: pointer;
-        background: none;
-        border: none;
-        padding: 0;
-        z-index: 1001;
+        display: block; cursor: pointer; background: none; border: none; padding: 0; z-index: 1001;
     }
     .hamburger span {
-        display: block;
-        width: 25px;
-        height: 3px;
-        background: var(--text-light);
-        margin: 5px 0;
+        display: block; width: 25px; height: 3px; background: var(--text-light); margin: 5px 0;
         transition: transform 0.3s ease, opacity 0.3s ease;
     }
     html.dark-mode .hamburger span { background: var(--text-dark); }
-
     .about-layout { grid-template-columns: 1fr; text-align: center; }
     .profile-pic { margin: 0 auto 30px; }
 }

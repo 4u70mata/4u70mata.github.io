@@ -8,25 +8,27 @@
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
 </head>
-<body>
+<body class="is-transitioning">
+    <div class="cursor"></div>
+    <div class="page-transition-overlay"></div>
+
     <header class="navbar" id="navbar">
         <div class="container">
-            <a href="index.html" class="logo">Sami Aridal</a>
+            <a href="index.html" class="logo magnetic-item">Sami Aridal</a>
             <nav class="nav-menu">
                 <ul class="nav-links">
                     <li><a href="index.html">Home</a></li>
                     <li><a href="about.html">About</a></li>
                     <li><a href="projects.html">Projects</a></li>
+                    <li><a href="articles.html">Articles</a></li>
                     <li><a href="contact.html" class="active">Contact</a></li>
                 </ul>
-                 <div class="theme-switcher">
-                    <button id="theme-toggle" title="Toggle dark mode">🌙</button>
+                <div class="theme-switcher">
+                    <button id="theme-toggle" class="magnetic-item" title="Toggle dark mode">🌙</button>
                 </div>
             </nav>
             <button class="hamburger" id="hamburger-menu" aria-label="Toggle menu">
-                <span></span>
-                <span></span>
-                <span></span>
+                <span></span><span></span><span></span>
             </button>
         </div>
     </header>
@@ -54,7 +56,7 @@
                         <label for="message">Message</label>
                         <textarea id="message" name="message" rows="6" required placeholder="Your message here..."></textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary">Send Message</button>
+                    <button type="submit" class="btn btn-primary magnetic-item">Send Message</button>
                 </form>
             </div>
         </section>
@@ -66,7 +68,7 @@
         </div>
     </footer>
 
-    <button id="scroll-to-top" title="Go to top">↑</button>
+    <button id="scroll-to-top" class="magnetic-item" title="Go to top">↑</button>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script src="js/main.js"></script>
 </body>

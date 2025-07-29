@@ -1,44 +1,97 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- 1. INITIALIZE AOS FOR SCROLL ANIMATIONS ---
-    AOS.init({
-        duration: 1000,
-        once: true,
-        offset: 50,
-    });
+    // --- CORE INITIALIZATION ---
+    function init() {
+        initTheme();
+        initPageTransitions();
+        initCustomCursor();
+        initMagneticItems();
+        initNavbar();
+        initScrollToTop();
+        AOS.init({ duration: 800, once: true, offset: 50 });
 
-    // --- 2. THREE.JS 3D BACKGROUND (only on homepage) ---
-    if (document.getElementById('bg')) {
+        // --- PAGE-SPECIFIC INITIALIZATION ---
+        if (document.getElementById('bg')) initThreeJS();
+        if (document.getElementById('projects-container')) loadProjects();
+        if (document.getElementById('project-detail-container')) loadProjectDetails();
+        if (document.getElementById('articles-container')) loadArticles();
+        if (document.getElementById('article-detail-container')) loadArticleDetails();
+        
+        console.log("Next-Level Portfolio Initialized.");
+    }
+
+    // --- THEME (LIGHT/DARK MODE) ---
+    function initTheme() {
+        const themeToggle = document.getElementById('theme-toggle');
+        const applyTheme = (theme) => {
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark-mode');
+                if(themeToggle) themeToggle.textContent = '☀️';
+            } else {
+                document.documentElement.classList.remove('dark-mode');
+                if(themeToggle) themeToggle.textContent = '🌙';
+            }
+        };
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        applyTheme(currentTheme);
+        if(themeToggle) themeToggle.addEventListener('click', () => {
+            let newTheme = document.documentElement.classList.contains('dark-mode') ? 'light' : 'dark';
+            applyTheme(newTheme);
+            localStorage.setItem('theme', newTheme);
+        });
+    }
+    
+    // --- IMMERSIVE 3D HERO ---
+    function initThreeJS() {
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('bg'), alpha: true });
-        
+        const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('bg'), antialias: true, alpha: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
-        camera.position.z = 5;
+        camera.position.z = 4;
 
-        // Use a more complex geometry like an Icosahedron
-        const geometry = new THREE.IcosahedronGeometry(2, 0); 
-        const material = new THREE.MeshStandardMaterial({ color: 0x007bff, wireframe: true });
-        const shape = new THREE.Mesh(geometry, material);
-        scene.add(shape);
+        const loader = new THREE.GLTFLoader();
+        let model;
+        loader.load('assets/models/crystal.gltf', (gltf) => {
+            model = gltf.scene;
+            model.scale.set(1.2, 1.2, 1.2);
+            model.traverse((child) => {
+                if (child.isMesh) {
+                    child.material = new THREE.MeshStandardMaterial({
+                        color: 0x6e9bff,
+                        metalness: 0.9,
+                        roughness: 0.1,
+                        transparent: true,
+                        opacity: 0.9
+                    });
+                }
+            });
+            scene.add(model);
+        }, undefined, (error) => console.error(error));
 
-        // Add some lighting
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-        scene.add(ambientLight);
-        const pointLight = new THREE.PointLight(0xffffff, 0.8);
-        pointLight.position.set(5, 5, 5);
-        scene.add(pointLight);
+        const pointLight1 = new THREE.PointLight(0x0d6efd, 2);
+        pointLight1.position.set(5, 5, 5);
+        const pointLight2 = new THREE.PointLight(0xffffff, 1);
+        pointLight2.position.set(-5, -5, -5);
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
+        scene.add(pointLight1, pointLight2, ambientLight);
 
-        // Animate the shape
+        let mouseX = 0, mouseY = 0;
+        document.addEventListener('mousemove', (e) => {
+            mouseX = (e.clientX - window.innerWidth / 2) / 100;
+            mouseY = (e.clientY - window.innerHeight / 2) / 100;
+        });
+
         function animate() {
             requestAnimationFrame(animate);
-            shape.rotation.x += 0.001;
-            shape.rotation.y += 0.001;
+            if (model) {
+                model.rotation.y += 0.002;
+                camera.position.x += (mouseX - camera.position.x) * 0.05;
+                camera.position.y += (-mouseY - camera.position.y) * 0.05;
+                camera.lookAt(scene.position);
+            }
             renderer.render(scene, camera);
         }
         animate();
-        
-        // Handle window resize
         window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
@@ -46,59 +99,158 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- 3. THEME (LIGHT/DARK MODE) TOGGLE ---
-    const themeToggle = document.getElementById('theme-toggle');
-    const currentTheme = localStorage.getItem('theme');
-
-    // Apply saved theme on load
-    if (currentTheme === 'dark') {
-        document.documentElement.classList.add('dark-mode');
-        themeToggle.textContent = '☀️';
+    // --- DYNAMIC CONTENT LOADING ---
+    async function fetchData(url) {
+        try {
+            const response = await fetch(url);
+            if (!response.ok) throw new Error('Network response was not ok');
+            return await response.json();
+        } catch (error) {
+            console.error(`Failed to fetch data from ${url}:`, error);
+            return null;
+        }
     }
 
-    themeToggle.addEventListener('click', () => {
-        document.documentElement.classList.toggle('dark-mode');
-        let theme = 'light';
-        if (document.documentElement.classList.contains('dark-mode')) {
-            theme = 'dark';
-            themeToggle.textContent = '☀️';
-        } else {
-            themeToggle.textContent = '🌙';
+    async function loadProjects() {
+        const projects = await fetchData('../data/projects.json');
+        const container = document.getElementById('projects-container');
+        if (projects && container) {
+            container.innerHTML = projects.map(p => `
+                <a href="project-detail.html?id=${p.id}" class="project-card-link">
+                    <div class="project-card" data-aos="fade-up">
+                        <h3>${p.title}</h3>
+                        <p>${p.tags.join(', ')}</p>
+                        <span class="btn-link">View Details →</span>
+                    </div>
+                </a>
+            `).join('');
         }
-        localStorage.setItem('theme', theme);
-    });
-    
-    // --- 4. HAMBURGER MENU FOR MOBILE ---
-    const hamburger = document.getElementById('hamburger-menu');
-    const navLinks = document.querySelector('.nav-links');
-    hamburger.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-    });
-    
-    // --- 5. STICKY NAVBAR & SCROLL-TO-TOP BUTTON ---
-    const navbar = document.getElementById('navbar');
-    const scrollToTopBtn = document.getElementById('scroll-to-top');
+    }
 
-    window.onscroll = () => {
-        // Sticky navbar styling
-        if (window.scrollY > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
+    async function loadProjectDetails() {
+        const params = new URLSearchParams(window.location.search);
+        const projectId = params.get('id');
+        const projects = await fetchData('../data/projects.json');
+        if (projects && projectId) {
+            const project = projects.find(p => p.id === projectId);
+            if (project) {
+                document.title = `${project.title} - Sami Aridal`;
+                document.getElementById('project-title').textContent = project.title;
+                document.getElementById('project-image').src = project.image;
+                document.getElementById('project-image').alt = project.title;
+                document.getElementById('project-description').textContent = project.description;
+                document.getElementById('project-tags').innerHTML = project.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
+                document.getElementById('project-live-url').href = project.liveUrl;
+                document.getElementById('project-source-url').href = project.sourceUrl;
+            }
         }
-        
-        // Show/hide scroll-to-top button
-        if (window.scrollY > 300) {
-            scrollToTopBtn.style.display = 'block';
-        } else {
-            scrollToTopBtn.style.display = 'none';
+    }
+
+    async function loadArticles() {
+        const articles = await fetchData('../data/articles.json');
+        const container = document.getElementById('articles-container');
+        if (articles && container) {
+            container.innerHTML = articles.map(a => `
+                <a href="article-detail.html?slug=${a.slug}" class="project-card-link">
+                    <div class="project-card" data-aos="fade-up">
+                        <h3>${a.title}</h3>
+                        <p>${a.excerpt}</p>
+                        <span class="btn-link">Read More →</span>
+                    </div>
+                </a>
+            `).join('');
         }
-    };
-    
-    // Scroll to top functionality
-    scrollToTopBtn.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-    
-    console.log("Portfolio scripts loaded and ready!");
+    }
+
+     async function loadArticleDetails() {
+        const params = new URLSearchParams(window.location.search);
+        const slug = params.get('slug');
+        const articles = await fetchData('../data/articles.json');
+        if (articles && slug) {
+            const article = articles.find(a => a.slug === slug);
+            if(article){
+                document.title = `${article.title} - Sami Aridal`;
+                document.getElementById('article-title').textContent = article.title;
+                document.getElementById('article-date').textContent = article.date;
+                document.getElementById('article-source').textContent = `Source: ${article.source}`;
+                document.getElementById('article-body').innerHTML = article.contentHtml;
+                const sourceLink = document.getElementById('article-source-url');
+                const sourceName = document.getElementById('article-source-name');
+                sourceLink.href = article.sourceUrl;
+                sourceName.textContent = article.source;
+            }
+        }
+    }
+
+    // --- UI & INTERACTIONS ---
+    function initCustomCursor() {
+        const cursor = document.querySelector('.cursor');
+        if (!cursor) return;
+        window.addEventListener('mousemove', e => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+        document.querySelectorAll('a, button, .magnetic-item').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('grow'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('grow'));
+        });
+    }
+
+    function initMagneticItems() {
+        document.querySelectorAll('.magnetic-item').forEach(item => {
+            item.addEventListener('mousemove', e => {
+                const rect = item.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                item.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px) scale(1.05)`;
+            });
+            item.addEventListener('mouseleave', () => {
+                item.style.transform = 'translate(0, 0) scale(1)';
+            });
+        });
+    }
+
+    function initPageTransitions() {
+        const overlay = document.querySelector('.page-transition-overlay');
+        if (!overlay) return;
+        window.addEventListener('load', () => {
+             setTimeout(() => {
+                document.body.classList.remove('is-transitioning');
+                overlay.style.transform = 'translateY(-100%)';
+            }, 50);
+        });
+
+        document.querySelectorAll('a').forEach(link => {
+            if (link.hostname === window.location.hostname && !link.href.includes('#') && link.target !== '_blank') {
+                link.addEventListener('click', e => {
+                    e.preventDefault();
+                    document.body.classList.add('is-leaving');
+                    overlay.style.transform = 'translateY(0)';
+                    setTimeout(() => {
+                        window.location = link.href;
+                    }, 500);
+                });
+            }
+        });
+    }
+
+    function initNavbar() {
+        const hamburger = document.getElementById('hamburger-menu');
+        const navLinks = document.querySelector('.nav-links');
+        const navbar = document.getElementById('navbar');
+        if(hamburger) hamburger.addEventListener('click', () => navLinks.classList.toggle('active'));
+        window.addEventListener('scroll', () => {
+            if(navbar) navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+    }
+
+    function initScrollToTop(){
+        const btn = document.getElementById('scroll-to-top');
+        if(btn){
+            window.addEventListener('scroll', () => btn.style.display = window.scrollY > 300 ? 'block' : 'none');
+            btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+        }
+    }
+
+    init();
 });

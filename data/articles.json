@@ -1,0 +1,20 @@
+[
+    {
+        "slug": "why-i-chose-react-for-my-new-project",
+        "title": "Why I Chose React for My New Project in 2024",
+        "date": "July 15, 2024",
+        "source": "Medium",
+        "sourceUrl": "#",
+        "excerpt": "A deep dive into the modern JavaScript ecosystem and why React, despite the competition, remains a top choice for building scalable front-end applications.",
+        "contentHtml": "<p>This is where you can paste the full HTML content of your article. Start with an introductory paragraph about why you're writing this. The web development landscape is constantly shifting, but some tools have proven their staying power.</p><h2>A Deeper Dive into the Ecosystem</h2><p>Here you can elaborate on your points, include code snippets using <code><pre><code>...</code></pre></code> tags, and structure your content just like a real blog post. Talk about state management with Redux Toolkit or Zustand, and the power of the Next.js framework.</p><h3>Code Example:</h3><pre><code class='language-jsx'>function Welcome(props) {\n  return <h1>Hello, {props.name}</h1>;\n}</code></pre><p>Ultimately, the component-based architecture and vast community support make React a reliable and efficient choice for projects of any scale.</p>"
+    },
+    {
+        "slug": "mastering-css-grid",
+        "title": "A Practical Guide to Mastering CSS Grid",
+        "date": "June 28, 2024",
+        "source": "Dev.to",
+        "sourceUrl": "#",
+        "excerpt": "Forget floats and flexbox for complex layouts. This guide walks through practical examples of how CSS Grid can simplify your life and your layouts.",
+        "contentHtml": "<p>Content for the CSS Grid article goes here. Explain the core concepts of Grid and provide useful examples that readers can apply directly to their own work. Start by defining what a grid container is and what grid items are.</p><p>Then, explore properties like <code>grid-template-columns</code>, <code>gap</code>, and <code>grid-auto-flow</code>. Show how to create responsive layouts with just a few lines of CSS, a task that used to require complex media queries.</p>"
+    }
+]

@@ -3,95 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sami Aridal - Developer Portfolio</title>
-    <meta name="description" content="The professional developer portfolio of Sami Aridal, showcasing modern web projects and skills.">
-    
-    <!-- SEO / OpenGraph Meta Tags -->
-    <meta property="og:title" content="Sami Aridal - Developer Portfolio">
-    <meta property="og:description" content="Creative developer building beautiful and functional web experiences.">
-    <meta property="og:image" content="https://4u70mata.github.io/assets/img/profile.jpg">
-    <meta property="og:url" content="https://4u70mata.github.io/">
-    
-    <!-- CSS -->
+    <title>Sami Aridal - Creative Developer</title>
+    <meta name="description" content="The professional portfolio of Sami Aridal, a creative developer crafting immersive and user-centric web applications.">
     <link rel="stylesheet" href="style/main.css">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
 </head>
-<body>
-    <!-- 3D Background Canvas -->
+<body class="is-transitioning">
+    <div class="cursor"></div>
+    <div class="page-transition-overlay"></div>
+
     <canvas id="bg"></canvas>
 
-    <!-- Header & Navigation -->
     <header class="navbar" id="navbar">
         <div class="container">
-            <a href="index.html" class="logo">Sami Aridal</a>
+            <a href="index.html" class="logo magnetic-item">Sami Aridal</a>
             <nav class="nav-menu">
                 <ul class="nav-links">
                     <li><a href="index.html" class="active">Home</a></li>
                     <li><a href="about.html">About</a></li>
                     <li><a href="projects.html">Projects</a></li>
+                    <li><a href="articles.html">Articles</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
                 <div class="theme-switcher">
-                    <button id="theme-toggle" title="Toggle dark mode">🌙</button>
+                    <button id="theme-toggle" class="magnetic-item" title="Toggle dark mode">🌙</button>
                 </div>
             </nav>
             <button class="hamburger" id="hamburger-menu" aria-label="Toggle menu">
-                <span></span>
-                <span></span>
-                <span></span>
+                <span></span><span></span><span></span>
             </button>
         </div>
     </header>
 
     <main>
-        <!-- Hero Section -->
         <section class="hero">
             <div class="container" data-aos="fade-up">
-                <h1>Hello, I’m Sami Aridal 👨‍💻</h1>
-                <p class="subtitle">I design and build dynamic, responsive, and beautiful web applications.</p>
-                <a href="projects.html" class="btn btn-primary">View My Projects</a>
-                <a href="assets/resume.pdf" class="btn" target="_blank">Download My Resume</a>
-            </div>
-        </section>
-
-        <!-- Featured Projects Section -->
-        <section id="featured-projects" class="content-section">
-            <div class="container">
-                <h2 data-aos="fade-up">Featured Work</h2>
-                <div class="project-grid">
-                    <div class="project-card" data-aos="fade-up" data-aos-delay="100">
-                        <h3>Project Title One</h3>
-                        <p>A brief but compelling description of a standout project, highlighting the key technologies used.</p>
-                        <a href="projects.html" class="btn-link">Learn More →</a>
-                    </div>
-                    <div class="project-card" data-aos="fade-up" data-aos-delay="200">
-                        <h3>Project Title Two</h3>
-                        <p>Showcase of another project, perhaps focusing on a different skill like API integration or UI/UX.</p>
-                        <a href="projects.html" class="btn-link">Learn More →</a>
-                    </div>
-                    <div class="project-card" data-aos="fade-up" data-aos-delay="300">
-                        <h3>Project Title Three</h3>
-                        <p>This project could demonstrate your ability to work with advanced libraries or backend technologies.</p>
-                        <a href="projects.html" class="btn-link">Learn More →</a>
-                    </div>
-                </div>
+                <h1>Crafting Digital Experiences</h1>
+                <p class="subtitle">I build immersive, user-centric web applications where technology and design converge.</p>
+                <a href="projects.html" class="btn btn-primary magnetic-item">Explore My Work</a>
             </div>
         </section>
     </main>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>© 2024 Sami Aridal. Built with passion and code.</p>
+            <p>© 2024 Sami Aridal. Engineering the web, one pixel at a time.</p>
         </div>
     </footer>
     
-    <!-- Scroll to Top Button -->
-    <button id="scroll-to-top" title="Go to top">↑</button>
+    <button id="scroll-to-top" class="magnetic-item" title="Go to top">↑</button>
 
-    <!-- JavaScript Libraries & Main Script -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.134/examples/js/loaders/GLTFLoader.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script src="js/main.js"></script>
 </body>
