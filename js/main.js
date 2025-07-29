@@ -11,13 +11,13 @@ document.addEventListener('DOMContentLoaded', () => {
         AOS.init({ duration: 800, once: true, offset: 50 });
 
         // --- PAGE-SPECIFIC INITIALIZATION ---
-        if (document.getElementById('bg')) initThreeJS();
+        if (document.getElementById('bg')) initThreeJS_NoDownload(); // <-- THIS FUNCTION IS NEW
         if (document.getElementById('projects-container')) loadProjects();
         if (document.getElementById('project-detail-container')) loadProjectDetails();
         if (document.getElementById('articles-container')) loadArticles();
         if (document.getElementById('article-detail-container')) loadArticleDetails();
         
-        console.log("Next-Level Portfolio Initialized.");
+        console.log("Next-Level Portfolio Initialized (No-Download Mode).");
     }
 
     // --- THEME (LIGHT/DARK MODE) ---
@@ -41,39 +41,29 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
-    // --- IMMERSIVE 3D HERO ---
-    function initThreeJS() {
+    // --- SIMPLE 3D HERO (NO DOWNLOAD REQUIRED) ---
+    function initThreeJS_NoDownload() {
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('bg'), antialias: true, alpha: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
         camera.position.z = 4;
 
-        const loader = new THREE.GLTFLoader();
-        let model;
-        loader.load('assets/models/crystal.gltf', (gltf) => {
-            model = gltf.scene;
-            model.scale.set(1.2, 1.2, 1.2);
-            model.traverse((child) => {
-                if (child.isMesh) {
-                    child.material = new THREE.MeshStandardMaterial({
-                        color: 0x6e9bff,
-                        metalness: 0.9,
-                        roughness: 0.1,
-                        transparent: true,
-                        opacity: 0.9
-                    });
-                }
-            });
-            scene.add(model);
-        }, undefined, (error) => console.error(error));
+        // Create a geometric shape directly with code
+        const geometry = new THREE.IcosahedronGeometry(1.5, 0); 
+        const material = new THREE.MeshStandardMaterial({
+            color: 0x6e9bff,
+            metalness: 0.8,
+            roughness: 0.2,
+            wireframe: true // Looks cool and is lightweight
+        });
+        const shape = new THREE.Mesh(geometry, material);
+        scene.add(shape);
 
         const pointLight1 = new THREE.PointLight(0x0d6efd, 2);
         pointLight1.position.set(5, 5, 5);
-        const pointLight2 = new THREE.PointLight(0xffffff, 1);
-        pointLight2.position.set(-5, -5, -5);
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
-        scene.add(pointLight1, pointLight2, ambientLight);
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+        scene.add(pointLight1, ambientLight);
 
         let mouseX = 0, mouseY = 0;
         document.addEventListener('mousemove', (e) => {
@@ -83,8 +73,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function animate() {
             requestAnimationFrame(animate);
-            if (model) {
-                model.rotation.y += 0.002;
+            if (shape) {
+                shape.rotation.y += 0.002;
+                shape.rotation.x += 0.001;
                 camera.position.x += (mouseX - camera.position.x) * 0.05;
                 camera.position.y += (-mouseY - camera.position.y) * 0.05;
                 camera.lookAt(scene.position);
@@ -112,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function loadProjects() {
-        const projects = await fetchData('../data/projects.json');
+        const projects = await fetchData('data/projects.json');
         const container = document.getElementById('projects-container');
         if (projects && container) {
             container.innerHTML = projects.map(p => `
@@ -130,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function loadProjectDetails() {
         const params = new URLSearchParams(window.location.search);
         const projectId = params.get('id');
-        const projects = await fetchData('../data/projects.json');
+        const projects = await fetchData('data/projects.json');
         if (projects && projectId) {
             const project = projects.find(p => p.id === projectId);
             if (project) {
@@ -147,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function loadArticles() {
-        const articles = await fetchData('../data/articles.json');
+        const articles = await fetchData('data/articles.json');
         const container = document.getElementById('articles-container');
         if (articles && container) {
             container.innerHTML = articles.map(a => `
@@ -165,7 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
      async function loadArticleDetails() {
         const params = new URLSearchParams(window.location.search);
         const slug = params.get('slug');
-        const articles = await fetchData('../data/articles.json');
+        const articles = await fetchData('data/articles.json');
         if (articles && slug) {
             const article = articles.find(a => a.slug === slug);
             if(article){
